@@ -15,14 +15,17 @@ connection.connect(function (err) {
 });
 var chooseId;
 var chooseNum;
+var classNum;
 
 function displayProducts() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         console.table(res);
+        classNum=res.length;
+        // console.log("class number "+classNum);
         buyProducts();
     });
-}
+};
 
 function buyProducts() {
     inquirer
@@ -39,30 +42,42 @@ function buyProducts() {
         ])
         .then(function (response) {
 
-            chooseId = response.productId;
+            chooseId = parseInt(response.productId);
             chooseNum = parseInt(response.quantity);
-
+            if(chooseId>classNum){
+                console.log("Please choose correct item id!");
+                buyProducts();
+            }else{
 
             var stockNum;
             var newQuantity;
+            var totalPrice=0;
+            var productSales=0;
+            var newSales;
             connection.query(
-                "SELECT stock_quantity FROM products WHERE ?", {
+                "SELECT * FROM products WHERE ?", {
                     item_id: chooseId
                 },
                 function (err, res) {
                     if (err) throw err;
 
                     stockNum = parseInt(res[0].stock_quantity);
-
+                    productSales = parseFloat(res[0].product_sales);
                     newQuantity = stockNum - chooseNum;
-                    console.log(newQuantity);
+                    totalPrice = parseFloat(res[0].price)*chooseNum;
+                    newSales = productSales+totalPrice;
+                    
                     if (chooseNum > stockNum) {
+                        console.log('Insufficient quantity! choose again!');
                         buyProducts();
                     } else {
                         connection.query(
-                            "UPDATE products SET ? WHERE ?",
+                            "UPDATE products SET ?, ? WHERE ?;",
                             [{
                                     stock_quantity: newQuantity
+                                },
+                                {
+                                    product_sales: newSales
                                 },
                                 {
                                     item_id: chooseId
@@ -70,6 +85,7 @@ function buyProducts() {
                             ],
                             function (err, res) {
                                 if (err) throw err;
+                                console.log("Order placed! Total price is "+totalPrice+"$.  Thank you!");
                                 connection.query("SELECT * FROM products", function (err, res) {
                                     if (err) throw err;
                                     console.table(res);
@@ -79,6 +95,8 @@ function buyProducts() {
                             });
                     };
                 });
+            };
             
         });
-}
+
+};

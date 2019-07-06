@@ -11,6 +11,11 @@ CREATE TABLE products(
     PRIMARY KEY (item_id)
 );
 
+-- USE bamazon;
+-- ALTER TABLE products
+-- ADD product_sales DECIMAL(10,2) ;
+-- UPDATE products SET product_sales=0 WHERE item_id<12;
+
 INSERT INTO products(product_name,department_name,price,stock_quantity)
 VALUES("shoes","clothing",55,100);
 INSERT INTO products(product_name,department_name,price,stock_quantity)
@@ -31,3 +36,4 @@ INSERT INTO products(product_name,department_name,price,stock_quantity)
 VALUES("milk","food",25,100000);
 INSERT INTO products(product_name,department_name,price,stock_quantity)
 VALUES("bike","sports",255,10010);
+
