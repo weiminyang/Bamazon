@@ -31,7 +31,7 @@ function buyProducts() {
     inquirer
         .prompt([{
                 type: "input",
-                message: "ID of the product you would like to buy",
+                message: "Item id of the product you would like to buy",
                 name: "productId"
             },
             {
@@ -85,7 +85,7 @@ function buyProducts() {
                             ],
                             function (err, res) {
                                 if (err) throw err;
-                                console.log("Order placed! Total price is "+totalPrice+"$.  Thank you!");
+                                console.log("Order placed! Total price is $"+totalPrice+".  Thank you!");
                                 connection.query("SELECT * FROM products", function (err, res) {
                                     if (err) throw err;
                                     console.table(res);

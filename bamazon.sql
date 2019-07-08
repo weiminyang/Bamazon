@@ -15,6 +15,7 @@ CREATE TABLE products(
 -- ALTER TABLE products
 -- ADD product_sales DECIMAL(10,2) ;
 -- UPDATE products SET product_sales=0 WHERE item_id<12;
+-- ALTER TABLE products ALTER product_sales SET DEFAULT 0;
 
 INSERT INTO products(product_name,department_name,price,stock_quantity)
 VALUES("shoes","clothing",55,100);
