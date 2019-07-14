@@ -1,7 +1,7 @@
 {
   "name": "bamazon",
   "version": "1.0.0",
-  "description": "",
+  "description": "* This an Amazon-like storefront app.\r 1. Customer\r * The first should ask them the ID of the product they would like to buy.\r The second message should ask how many units of the product they would like to buy.\r If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.\r If your store does have enough of the product, you should fulfill the customer's order.\r This means updating the SQL database to reflect the remaining quantity.\r Once the update goes through, show the customer the total cost of their purchase.\r * ![image](./image/customer.png)\r * [click link for demo](https://drive.google.com/file/d/1YpinEbwT8Z7eL2QtYElgHpfq2OrAskH-/view)\r 2. Manager\r * If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.",
   "main": "bamazonCustomer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/weiminyang/Bamazon#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "inquirer": "^6.4.1",
     "mysql": "^2.17.1"
   },
